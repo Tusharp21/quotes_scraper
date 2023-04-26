@@ -3,7 +3,7 @@ from ..items import QuotesItem
 
 
 class quotesSpider(scrapy.Spider):
-    name = 'quotes'
+    name = 'quotes_xpath'
     start_urls = [
         'https://www.goodreads.com/quotes'
         # 'https://quotes.toscrape.com/'
@@ -18,18 +18,13 @@ class quotesSpider(scrapy.Spider):
             quote = quote_item.xpath('//div[@class="quoteText"]/text()').get()
             author = quote_item.xpath('//span[@class="authorOrTitle"]/text()').get()
             tags = quote_item.xpath('//div[@class="greyText"]/a/text()').extract()
-            yield {
-                'quote': quote,
-                'author': author
-                }
+            
 
-        
+            items['quote'] = quote.strip()
+            items['author'] = author.strip()
+            items['tags'] = tags
 
-        items['quote'] = quote.strip()
-        items['author'] = author.strip()
-        items['tags'] = tags
-
-        yield items
+            yield items
 
         # all_quotes = response.css("div.quoteDetails")
 

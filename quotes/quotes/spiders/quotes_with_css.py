@@ -3,7 +3,7 @@ from ..items import QuotesItem
 
 
 class quotesSpider(scrapy.Spider):
-    name = 'quotes'
+    name = 'quotes_css'
     start_urls = [
         'https://www.goodreads.com/quotes'
         # 'https://quotes.toscrape.com/'
